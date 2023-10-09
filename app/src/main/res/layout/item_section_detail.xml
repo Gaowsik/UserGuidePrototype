@@ -14,31 +14,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/playerView"/>
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_video_data"/>
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/playerView"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_gravity="center"
-        android:background="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/text_video_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:resize_mode="fit"
-        app:surface_type="texture_view" />
-
-    <TextView
-        android:id="@+id/text_video_description"
-        android:background="#00000000"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_video_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        android:textColor="@android:color/white"
-        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,18 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
+import com.example.userguideprototype.models.SubTitle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTitleViewHolder> {
-    private List<String> subTitles;
+    private List<SubTitle> subTitles;
 
     public SubTitleAdapter() {
         subTitles = new ArrayList<>();
     }
 
-    public void setSubTitles(List<String> subTitles) {
+    public void setSubTitles(List<SubTitle> subTitles) {
         this.subTitles = subTitles;
         notifyDataSetChanged();
     }
@@ -29,15 +30,15 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
     @Override
     public SubTitleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item_sub_titiles, parent, false);
+        View view = layoutInflater.inflate(R.layout.item_section_titiles, parent, false);
         return new SubTitleViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SubTitleViewHolder holder, int position) {
-        final String currentItem = subTitles.get(position);
+        final SubTitle currentItem = subTitles.get(position);
         if (currentItem != null) {
-            holder.subTitleTextView.setText(currentItem);
+            holder.subTitleTextView.setText(currentItem.getSubTitle());
         }
 
     }
