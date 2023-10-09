@@ -1,4 +1,4 @@
-package com.example.userguideprototype.adapters;
+package com.example.userguideprototype.adapters.TitleAdapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

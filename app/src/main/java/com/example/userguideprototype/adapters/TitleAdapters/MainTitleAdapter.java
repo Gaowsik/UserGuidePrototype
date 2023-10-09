@@ -1,6 +1,5 @@
-package com.example.userguideprototype.adapters;
+package com.example.userguideprototype.adapters.TitleAdapters;
 
-import android.bluetooth.BluetoothDevice;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

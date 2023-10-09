@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.userguideprototype.adapters.MainTitleAdapter;
+import com.example.userguideprototype.adapters.TitleAdapters.MainTitleAdapter;
 import com.example.userguideprototype.adapters.videoSectionAdapters.MainSectionAdapter;
 
 public class MainActivity extends AppCompatActivity {

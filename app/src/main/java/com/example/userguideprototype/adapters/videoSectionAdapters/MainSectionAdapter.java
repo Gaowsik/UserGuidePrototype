@@ -1,6 +1,5 @@
 package com.example.userguideprototype.adapters.videoSectionAdapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
-import com.example.userguideprototype.adapters.SubTitleAdapter;
 import com.example.userguideprototype.models.MainTitle;
 
 import java.util.ArrayList;
