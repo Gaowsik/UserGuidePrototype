@@ -32,5 +32,14 @@ public class Utils
         return subTitles;
     }
 
+    // Static function to retrieve all subtitle lists from a list of MainTitle objects
+    public static List<List<String>> getAllSubTitleLists(List<MainTitle> mainTitleList) {
+        List<List<String>> allSubTitleLists = new ArrayList<>();
+        for (MainTitle mainTitle : mainTitleList) {
+            allSubTitleLists.add(mainTitle.getSubTitleList());
+        }
+        return allSubTitleLists;
+    }
+
 
 }
