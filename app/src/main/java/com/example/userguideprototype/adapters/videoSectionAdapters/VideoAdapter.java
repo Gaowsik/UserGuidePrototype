@@ -10,32 +10,40 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
+import com.example.userguideprototype.models.SubTitle;
 import com.example.userguideprototype.models.VideoItem;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ui.PlayerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
     private List<VideoItem> videoItems;
     private ExoPlayer player;
 
-    public VideoAdapter(List<VideoItem> videoItems) {
-        this.videoItems = videoItems;
+    public VideoAdapter() {
+        videoItems = new ArrayList<>();
     }
+
+    public void setVideoAdapterItems(List<VideoItem> videoItems) {
+
+        this.videoItems.addAll(videoItems);
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_section_detail, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_section_video_content, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         VideoItem videoItem = videoItems.get(position);
-        holder.titleTextView.setText(videoItem.getTitle());
         holder.descriptionTextView.setText(videoItem.getDescription());
         // Initialize ExoPlayer for this item
         holder.initializePlayer(videoItem.getVideoResId());
@@ -48,15 +56,13 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private PlayerView playerView;
-        private TextView titleTextView;
 
         private TextView descriptionTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-   /*         playerView = itemView.findViewById(R.id.playerView);
-            titleTextView = itemView.findViewById(R.id.text_title);
-            descriptionTextView = itemView.findViewById(R.id.text_description);*/
+            playerView = itemView.findViewById(R.id.playerView);
+            descriptionTextView = itemView.findViewById(R.id.text_description);
         }
 
         public void initializePlayer(int videoResId) {

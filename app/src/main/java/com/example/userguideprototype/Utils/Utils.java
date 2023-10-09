@@ -1,5 +1,6 @@
 package com.example.userguideprototype.Utils;
 
+import com.example.userguideprototype.R;
 import com.example.userguideprototype.models.MainTitle;
 import com.example.userguideprototype.models.SubTitle;
 import com.example.userguideprototype.models.VideoItem;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
+
+
 
     public static List<MainTitle> generateSampleMainTitleList() {
         List<MainTitle> mainTitleList = new ArrayList<>();
@@ -26,9 +29,12 @@ public class Utils {
 
     private static List<SubTitle> generateSampleSubTitles(int count) {
         List<SubTitle> subTitles = new ArrayList<>();
+        List<VideoItem> videoItems = new ArrayList<>();
+        videoItems.add(new VideoItem(R.raw.a, "Video 1 Title","jijl"));
+        videoItems.add(new VideoItem(R.raw.b, "Video 2 Title","sfs"));
         for (int i = 1; i <= count; i++) {
             String subTitle = "Sub Title " + i;
-            SubTitle subTitledata = new SubTitle(subTitle, new ArrayList<VideoItem>());
+            SubTitle subTitledata = new SubTitle(subTitle,videoItems);
             subTitles.add(subTitledata);
         }
         return subTitles;

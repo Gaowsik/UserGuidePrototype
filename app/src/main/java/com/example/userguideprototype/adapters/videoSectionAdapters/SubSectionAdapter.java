@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
@@ -35,11 +36,11 @@ public class SubSectionAdapter extends RecyclerView.Adapter<SubSectionAdapter.Su
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SubSectionAdapter.SubSectionViewHolder  holder, int position) {
+    public void onBindViewHolder(@NonNull SubSectionAdapter.SubSectionViewHolder holder, int position) {
         final SubTitle currentItem = subTitles.get(position);
         if (currentItem != null) {
             holder.subTitleTextView.setText(currentItem.getSubTitle());
-            
+            holder.videoAdapter.setVideoAdapterItems(currentItem.getvideoItemList());
         }
 
     }
@@ -51,11 +52,17 @@ public class SubSectionAdapter extends RecyclerView.Adapter<SubSectionAdapter.Su
 
     public class SubSectionViewHolder extends RecyclerView.ViewHolder {
         private TextView subTitleTextView;
+        private RecyclerView recyclerViewVideoData;
+        private VideoAdapter videoAdapter;
 
 
         public SubSectionViewHolder(View itemView) {
             super(itemView);
             subTitleTextView = itemView.findViewById(R.id.section_title);
+            recyclerViewVideoData = itemView.findViewById(R.id.recyclerView_video_data);
+            videoAdapter = new VideoAdapter();
+            recyclerViewVideoData.setAdapter(videoAdapter);
+            recyclerViewVideoData.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         }
     }
 }
