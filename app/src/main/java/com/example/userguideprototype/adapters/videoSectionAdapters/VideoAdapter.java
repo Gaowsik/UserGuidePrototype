@@ -67,7 +67,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
         public void initializePlayer(int videoResId) {
             player = new ExoPlayer.Builder(itemView.getContext()).build();
+            playerView.setUseController(false);
+          //  player.setRepeatMode(Player.REPEAT_MODE_ALL);
             playerView.setPlayer(player);
+
 
             // Create a resource URI for the video
             Uri videoUri = Uri.parse("android.resource://" + itemView.getContext().getPackageName() + "/" + videoResId);
