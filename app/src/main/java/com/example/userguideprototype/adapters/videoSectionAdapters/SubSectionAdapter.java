@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
+import com.example.userguideprototype.cutomRecyclerView.VideoPlayerRecyclerView;
 import com.example.userguideprototype.models.SubTitle;
+import com.example.userguideprototype.models.VideoItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ public class SubSectionAdapter extends RecyclerView.Adapter<SubSectionAdapter.Su
         final SubTitle currentItem = subTitles.get(position);
         if (currentItem != null) {
             holder.subTitleTextView.setText(currentItem.getSubTitle());
+            holder.recyclerViewVideoData.setMediaObjects(currentItem.getvideoItemList());
             holder.videoAdapter.setVideoAdapterItems(currentItem.getvideoItemList());
         }
 
@@ -52,7 +55,7 @@ public class SubSectionAdapter extends RecyclerView.Adapter<SubSectionAdapter.Su
 
     public class SubSectionViewHolder extends RecyclerView.ViewHolder {
         private TextView subTitleTextView;
-        private RecyclerView recyclerViewVideoData;
+        private VideoPlayerRecyclerView recyclerViewVideoData;
         private VideoAdapter videoAdapter;
 
 

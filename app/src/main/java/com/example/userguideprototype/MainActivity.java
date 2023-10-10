@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.example.userguideprototype.adapters.TitleAdapters.MainTitleAdapter;
 import com.example.userguideprototype.adapters.videoSectionAdapters.MainSectionAdapter;
+import com.example.userguideprototype.cutomRecyclerView.VideoPlayerRecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     private MainTitleAdapter adapter;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private MainSectionAdapter mainSectionAdapter;
     private RecyclerView recyclerView;
     private RecyclerView subItemRecyclerView;
+
+    private VideoPlayerRecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        if(mRecyclerView!=null)
+            mRecyclerView.releasePlayer();
+        super.onDestroy();
+    }
 }
