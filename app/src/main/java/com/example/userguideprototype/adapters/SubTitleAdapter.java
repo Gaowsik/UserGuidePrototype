@@ -9,18 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
+import com.example.userguideprototype.models.SubTitle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTitleViewHolder> {
-    private List<String> subTitles;
+    private List<SubTitle> subTitles;
 
     public SubTitleAdapter() {
         subTitles = new ArrayList<>();
     }
 
-    public void setSubTitles(List<String> subTitles) {
+    public void setSubTitles(List<SubTitle> subTitles) {
         this.subTitles = subTitles;
         notifyDataSetChanged();
     }
@@ -35,9 +36,9 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
 
     @Override
     public void onBindViewHolder(@NonNull SubTitleViewHolder holder, int position) {
-        final String currentItem = subTitles.get(position);
+        final SubTitle currentItem = subTitles.get(position);
         if (currentItem != null) {
-            holder.subTitleTextView.setText(currentItem);
+            holder.subTitleTextView.setText(currentItem.getSubTitle());
         }
 
     }
