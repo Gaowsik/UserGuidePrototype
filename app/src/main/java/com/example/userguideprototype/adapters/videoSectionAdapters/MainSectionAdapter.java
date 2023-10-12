@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
 import com.example.userguideprototype.models.MainTitle;
+import com.example.userguideprototype.models.SubTitle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,10 @@ import java.util.List;
 public class MainSectionAdapter extends RecyclerView.Adapter<MainSectionAdapter.MainSectionViewHolder> {
     private List<MainTitle> mainTitleList;
 
-    public MainSectionAdapter() {
+    private RecyclerView mainRecyclerView;
+    public MainSectionAdapter(RecyclerView mainRecyclerView) {
         mainTitleList = new ArrayList<>();
+        this.mainRecyclerView = mainRecyclerView;
     }
 
     public void setDataList(List<MainTitle> mainTitleList) {
@@ -66,4 +69,28 @@ public class MainSectionAdapter extends RecyclerView.Adapter<MainSectionAdapter.
 
         }
     }
+
+    public void navigateToSubTitle(String subTitleName) {
+        for (MainTitle mainTitle : mainTitleList) {
+            for (SubTitle subTitle : mainTitle.getSubTitleList()) {
+                if (subTitle.getSubTitle().equals(subTitleName)) {
+                    int mainTitlePosition = mainTitleList.indexOf(mainTitle);
+                    int subTitlePosition = mainTitle.getSubTitleList().indexOf(subTitle);
+
+                    // First, scroll the main RecyclerView to the MainTitle item
+                    mainRecyclerView.scrollToPosition(mainTitlePosition);
+
+                    // Then, scroll the sub-item RecyclerView within the MainTitle
+                    MainSectionViewHolder mainViewHolder = (MainSectionViewHolder) mainRecyclerView
+                            .findViewHolderForAdapterPosition(mainTitlePosition);
+                    if (mainViewHolder != null) {
+                        mainViewHolder.subItemRecyclerView.scrollToPosition(subTitlePosition);
+                    }
+
+                    return; // Break out of the loop once found
+                }
+            }
+        }
+    }
 }
+
