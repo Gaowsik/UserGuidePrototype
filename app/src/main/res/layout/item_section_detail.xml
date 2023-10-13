@@ -3,29 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="8dp">
-
-    <TextView
-        android:id="@+id/text_main_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#333333"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/playerView"
-        app:layout_constraintTop_toTopOf="parent"/>
+  >
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/playerView"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_gravity="center"
+        android:layout_height="400dp"
         android:background="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/text_video_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:resize_mode="fit"
+        app:layout_constraintTop_toTopOf="parent"
+        app:resize_mode="fill"
         app:surface_type="texture_view" />
 
     <TextView

@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.userguideprototype.adapters.DetailSection.MainAdapter;
 import com.example.userguideprototype.adapters.MainTitleAdapter;
+import com.example.userguideprototype.adapters.SubTitleAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SubTitleAdapter.OnSubTitleItemClickListener{
     private MainTitleAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -38,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private void inializeVariables() {
         recyclerView = findViewById(R.id.recycler_item);
         mainRecyclerView = findViewById(R.id.recyclerView_content);
-        adapter = new MainTitleAdapter();
-        mainAdapter = new MainAdapter(this);
+        adapter = new MainTitleAdapter(this);
+        mainAdapter = new MainAdapter(this,mainRecyclerView);
     }
 
     private void setUpRecyclerView() {
@@ -59,4 +61,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSubTitleItemClick(String subTitle) {
+        Log.d("MainActi","subtitle "+subTitle);
+        mainAdapter.navigateToSubTitle(subTitle);
+    }
 }

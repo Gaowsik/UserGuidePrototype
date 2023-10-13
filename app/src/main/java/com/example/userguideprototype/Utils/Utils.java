@@ -56,6 +56,24 @@ public class Utils
         mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
         mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 4"));
         mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_MAIN_TITLE,"Main Title 2"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 5"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 6"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 7"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_MAIN_TITLE,"Main Title 3"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 10"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 11"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 12"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 13"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+        mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 14"));
+        mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
 
         return mainData;
     }

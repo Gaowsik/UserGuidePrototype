@@ -19,8 +19,11 @@ import java.util.List;
 public class MainTitleAdapter extends RecyclerView.Adapter<MainTitleAdapter.MainTitleViewHolder> {
     private List<MainTitle> mainTitleList;
 
-    public MainTitleAdapter() {
+    private SubTitleAdapter.OnSubTitleItemClickListener subTitleItemClickListener;
+
+    public MainTitleAdapter(SubTitleAdapter.OnSubTitleItemClickListener subTitleItemClickListener) {
        mainTitleList = new ArrayList<>();
+        this.subTitleItemClickListener = subTitleItemClickListener;
     }
 
     public void setDataList(List<MainTitle> mainTitleList) {
@@ -68,7 +71,7 @@ public class MainTitleAdapter extends RecyclerView.Adapter<MainTitleAdapter.Main
             // Initialize subItemRecyclerView and set its layout manager
             subItemRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
             // Initialize subTitleAdapter and set it on subItemRecyclerView
-            subTitleAdapter = new SubTitleAdapter();
+            subTitleAdapter = new SubTitleAdapter(subTitleItemClickListener);
             subItemRecyclerView.setAdapter(subTitleAdapter);
 
             // Handle clicks on the main title to toggle sub-items visibility

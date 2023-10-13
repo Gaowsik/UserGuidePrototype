@@ -28,9 +28,12 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;
     private List<MainData> mainTitles; // List of items, where Object can be MainTitle, Subtitle, or List<ImageData>
 
-    public MainAdapter(Context context) {
+    private RecyclerView mainRecyclerView;
+
+    public MainAdapter(Context context,RecyclerView mainRecyclerView) {
         this.context = context;
         mainTitles = new ArrayList<>();
+        this.mainRecyclerView = mainRecyclerView;
     }
 
     public void setData(List<MainData> mainTitle) {
@@ -139,6 +142,19 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void bindImageDataList(MainData videoDataList) {
             videoAdapter.setVideoAdapterItems(videoDataList.getVideoItemList());
+        }
+    }
+
+    public void navigateToSubTitle(String subTitleName) {
+        for (MainData mainTitle : mainTitles) {
+            if (mainTitle.getTitle() != null && mainTitle.getTitle().equals(subTitleName)) {
+                int mainTitlePosition = mainTitles.indexOf(mainTitle);
+
+                // Scroll to the MainTitle item with the LinearLayoutManager
+                LinearLayoutManager layoutManager = (LinearLayoutManager) mainRecyclerView.getLayoutManager();
+                layoutManager.scrollToPositionWithOffset(mainTitlePosition, 0); // You can adjust the offset as needed
+                return; // Break out of the loop once found
+            }
         }
     }
 }

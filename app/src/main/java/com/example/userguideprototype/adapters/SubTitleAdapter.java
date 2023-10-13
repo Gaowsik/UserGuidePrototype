@@ -15,9 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTitleViewHolder> {
+
+    public interface OnSubTitleItemClickListener {
+        void onSubTitleItemClick(String subTitle);
+    }
     private List<SubTitle> subTitles;
 
-    public SubTitleAdapter() {
+    private OnSubTitleItemClickListener itemClickListener;
+
+    public SubTitleAdapter(OnSubTitleItemClickListener itemClickListener) {
+        this.itemClickListener =itemClickListener;
         subTitles = new ArrayList<>();
     }
 
@@ -39,6 +46,15 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
         final SubTitle currentItem = subTitles.get(position);
         if (currentItem != null) {
             holder.subTitleTextView.setText(currentItem.getSubTitle());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onSubTitleItemClick(currentItem.getSubTitle());
+                    }
+                }
+            });
         }
 
     }
