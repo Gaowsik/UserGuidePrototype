@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
+import com.example.userguideprototype.customView.VideoPlayerRecyclerView;
 import com.example.userguideprototype.models.MainData;
 import com.example.userguideprototype.models.MainTitle;
 import com.example.userguideprototype.models.SubTitle;
@@ -25,12 +26,13 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_SUBTITLE = 1;
     private static final int VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW = 2;
 
+
     private final Context context;
-    private List<MainData> mainTitles; // List of items, where Object can be MainTitle, Subtitle, or List<ImageData>
+    public List<MainData> mainTitles; // List of items, where Object can be MainTitle, Subtitle, or List<ImageData>
 
     private RecyclerView mainRecyclerView;
 
-    public MainAdapter(Context context,RecyclerView mainRecyclerView) {
+    public MainAdapter(Context context, RecyclerView mainRecyclerView) {
         this.context = context;
         mainTitles = new ArrayList<>();
         this.mainRecyclerView = mainRecyclerView;
@@ -129,12 +131,14 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     static class ImageRecyclerViewViewHolder extends RecyclerView.ViewHolder {
-        private RecyclerView imageRecyclerView;
+
         private VideoAdapter videoAdapter;
+        private VideoPlayerRecyclerView imageRecyclerView;
 
         ImageRecyclerViewViewHolder(@NonNull View itemView) {
             super(itemView);
             imageRecyclerView = itemView.findViewById(R.id.recycler_video_item);
+            imageRecyclerView.init(itemView.getContext());
             videoAdapter = new VideoAdapter(); // You'll need to create this adapter for your images.
             imageRecyclerView.setAdapter(videoAdapter);
             imageRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -142,6 +146,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void bindImageDataList(MainData videoDataList) {
             videoAdapter.setVideoAdapterItems(videoDataList.getVideoItemList());
+            imageRecyclerView.setMediaObjects((ArrayList<VideoItem>) videoDataList.getVideoItemList());
+        }
+
+        void releaseResource() {
+            imageRecyclerView.releasePlayer();
         }
     }
 
@@ -157,4 +166,20 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         }
     }
+
+    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+
+        if (holder instanceof ImageRecyclerViewViewHolder) {
+            // Handle resource cleanup specific to your ImageRecyclerViewViewHolder here
+            ((ImageRecyclerViewViewHolder) holder).releaseResource();
+        }
+    }
+
+    public void playVideo(int number) {
+/*        imageRecyclerView.resetVideoView();
+        imageRecyclerView.playVideo(number);*/
+    }
+
+
 }

@@ -4,6 +4,9 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +21,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
     private List<VideoItem> videoItems;
     private ExoPlayer player;
 
@@ -35,17 +38,18 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_section_detail, parent, false);
-        return new ViewHolder(view);
+        return new VideoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
+        holder.itemView.setTag(holder);
         VideoItem videoItem = videoItems.get(position);
         holder.descriptionTextView.setText(videoItem.getDescription());
         // Initialize ExoPlayer for this item
-        holder.initializePlayer(videoItem.getVideoResId());
+        // holder.initializePlayer(videoItem.getVideoResId());
     }
 
     @Override
@@ -53,18 +57,25 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         return videoItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private PlayerView playerView;
-
+    public class VideoViewHolder extends RecyclerView.ViewHolder {
+        //  private PlayerView playerView;
+        FrameLayout media_container;
+        public ProgressBar progressBar;
+        View parent;
         private TextView descriptionTextView;
+        public ImageView thumbnail;
 
-        public ViewHolder(@NonNull View itemView) {
+        public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
-            playerView = itemView.findViewById(R.id.playerView);
+            //     playerView = itemView.findViewById(R.id.playerView);
+            parent = itemView;
+            media_container = itemView.findViewById(R.id.media_container);
+            thumbnail = itemView.findViewById(R.id.thumbnail);
+            progressBar = itemView.findViewById(R.id.progressBar);
             descriptionTextView = itemView.findViewById(R.id.text_video_description);
         }
 
-        public void initializePlayer(int videoResId) {
+ /*       public void initializePlayer(int videoResId) {
             player = new ExoPlayer.Builder(itemView.getContext()).build();
             playerView.setUseController(false);
           //  player.setRepeatMode(Player.REPEAT_MODE_ALL);
@@ -78,7 +89,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             player.setMediaItem(mediaItem);
             player.prepare();
             player.setPlayWhenReady(true);
-        }
+        }*/
 
 /*        public void initializePlayerForStreaming(String videoUrl) {
             player = new ExoPlayer.Builder(itemView.getContext()).build();
