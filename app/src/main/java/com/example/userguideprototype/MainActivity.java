@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements SubTitleAdapter.O
                     if (item.getViewType() == VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW) {
                         // Your VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW is fully visible, call your method here
                     //    Log.d("videoFlow", "playVideo when the item is fully visible at position " + firstVisibleItemPosition);
-                        mainAdapter.playVideo(firstVisibleItemPosition);
+                      //  mainAdapter.playVideo(firstVisibleItemPosition);
                     }
                 }
             }

@@ -70,7 +70,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     private int screenDefaultHeight = 0;
     private Context context;
     private int playPosition = -1;
-    private boolean isVideoViewAdded;
+    private boolean isVideoViewAdded=false;
     private boolean isAtLastItem;
     private int currentVideo;
 
@@ -87,6 +87,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
 
     public void init(Context context) {
+        isVideoViewAdded = false;
         this.context = context.getApplicationContext();
         Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point point = new Point();
@@ -102,6 +103,9 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         // Bind the player to the view.
         videoSurfaceView.setUseController(false);
         videoSurfaceView.setPlayer(videoPlayer);
+        Log.d("videoFlow", "init is called");
+
+
 
         addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -113,9 +117,9 @@ public class VideoPlayerRecyclerView extends RecyclerView {
                     if (thumbnail != null) { // show the old thumbnail
                         thumbnail.setVisibility(VISIBLE);
                     }
-
-                    playVideo(currentVideo);
                     Log.d("videoFlow", "playVideo from horizonatal change");
+                    playVideo(currentVideo);
+
 
                 }
             }
@@ -123,6 +127,11 @@ public class VideoPlayerRecyclerView extends RecyclerView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                if (playPosition == -1)
+                {
+                    playVideo(0);
+                }
             }
         });
 
@@ -182,9 +191,12 @@ public class VideoPlayerRecyclerView extends RecyclerView {
                         Log.e(TAG, "onPlayerStateChanged: Ready to play.");
                         if (progressBar != null) {
                             progressBar.setVisibility(GONE);
+                            Log.d("videoFlow","progress bar is gone");
                         }
+                        Log.d("videoFlow","isVideoViewAdded"+isVideoViewAdded);
                         if (!isVideoViewAdded) {
                             addVideoView();
+                            Log.d("videoFlow", "View has been resetted");
                         }
                         break;
                     default:
@@ -333,6 +345,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         if (index >= 0) {
             parent.removeViewAt(index);
             isVideoViewAdded = false;
+            Log.d("videoFlow", "View has been removed"+index);
 //            viewHolderParent.setOnClickListener(null);
         }
 
@@ -365,8 +378,9 @@ public class VideoPlayerRecyclerView extends RecyclerView {
             videoPlayer.release();
             videoPlayer = null;
         }
+        Log.d("videoFlow","Player is released");
 
-        viewHolderParent = null;
+    //    viewHolderParent = null;
     }
 
 
@@ -382,6 +396,23 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         int viewHeight = view.getHeight();
         return visibleHeight == viewHeight;
     }*/
+
+    // Pause the player and seek to the start position
+    public void pauseAndSeekToStart() {
+        if (videoPlayer != null) {
+            videoPlayer.setPlayWhenReady(false);
+            videoPlayer.seekTo(0);
+        }
+    }
+
+    // Resume playback from the start position
+   public void playFromStart() {
+        if (videoPlayer != null) {
+            videoPlayer.setPlayWhenReady(true);
+            videoPlayer.seekTo(0);
+        }
+    }
+
 
     private boolean isFullyVisible(View view) {
         Rect itemRect = new Rect();

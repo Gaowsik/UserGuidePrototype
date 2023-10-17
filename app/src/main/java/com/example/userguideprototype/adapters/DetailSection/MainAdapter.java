@@ -1,6 +1,7 @@
 package com.example.userguideprototype.adapters.DetailSection;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MainData item = mainTitles.get(position);
-
+        holder.setIsRecyclable(false);
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MAIN_TITLE:
                 //((MainTitleViewHolder) holder).bindMainTitle(item);
@@ -99,6 +100,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((SubtitleViewHolder) holder).subtitleTextView.setText(item.getTitle());
                 break;
             case VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW:
+
+                ((ImageRecyclerViewViewHolder) holder).playFromStart();
                 ((ImageRecyclerViewViewHolder) holder).bindImageDataList(item);
                 break;
         }
@@ -138,7 +141,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageRecyclerViewViewHolder(@NonNull View itemView) {
             super(itemView);
             imageRecyclerView = itemView.findViewById(R.id.recycler_video_item);
-            imageRecyclerView.init(itemView.getContext());
             videoAdapter = new VideoAdapter(); // You'll need to create this adapter for your images.
             imageRecyclerView.setAdapter(videoAdapter);
             imageRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -151,6 +153,10 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void releaseResource() {
             imageRecyclerView.releasePlayer();
+        }
+
+        void playFromStart(){
+            imageRecyclerView.playFromStart();
         }
     }
 
@@ -167,12 +173,24 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+/*    public void onViewRecycled(RecyclerView.ViewHolder holder) {
         super.onViewRecycled(holder);
 
         if (holder instanceof ImageRecyclerViewViewHolder) {
             // Handle resource cleanup specific to your ImageRecyclerViewViewHolder here
             ((ImageRecyclerViewViewHolder) holder).releaseResource();
+            Log.d("videoFlow","Player is released");
+        }
+    }*/
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+
+        if (holder.getItemViewType() == VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW) {
+            // Handle resource cleanup specific to your ImageRecyclerViewViewHolder here
+            ((ImageRecyclerViewViewHolder) holder).releaseResource();
+            Log.d("videoFlow", "Player is released");
         }
     }
 
