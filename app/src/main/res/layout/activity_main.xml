@@ -7,14 +7,25 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/image_arrow_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view_titles"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_item"
+        android:id="@+id/recycler_view_titles"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/image_arrow_back"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="24dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_content"
@@ -23,7 +34,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="24dp"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -31,4 +43,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.333" />
+
+    <View
+        android:id="@+id/view_seperator"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="#80FFFFFF"
+       app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

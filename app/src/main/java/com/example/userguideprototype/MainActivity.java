@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,8 +18,8 @@ import com.example.userguideprototype.adapters.SubTitleAdapter;
 import com.example.userguideprototype.models.MainData;
 
 public class MainActivity extends AppCompatActivity implements SubTitleAdapter.OnSubTitleItemClickListener{
-    private MainTitleAdapter adapter;
-    private RecyclerView recyclerView;
+    private MainTitleAdapter titleAdapter;
+    private RecyclerView recyclerViewTitles;
 
     private MainAdapter mainAdapter;
 
@@ -42,17 +41,17 @@ public class MainActivity extends AppCompatActivity implements SubTitleAdapter.O
 
 
     private void inializeVariables() {
-        recyclerView = findViewById(R.id.recycler_item);
+        recyclerViewTitles = findViewById(R.id.recycler_view_titles);
         mainRecyclerView = findViewById(R.id.recyclerView_content);
-        adapter = new MainTitleAdapter(this);
+        titleAdapter = new MainTitleAdapter(this);
         mainAdapter = new MainAdapter(this,mainRecyclerView);
     }
 
     private void setUpRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        adapter.setDataList(generateSampleMainTitleList());
+        recyclerViewTitles.setLayoutManager(layoutManager);
+        recyclerViewTitles.setAdapter(titleAdapter);
+        titleAdapter.setDataList(generateSampleMainTitleList());
 
     }
 

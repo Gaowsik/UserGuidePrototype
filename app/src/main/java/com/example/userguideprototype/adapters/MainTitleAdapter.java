@@ -1,12 +1,12 @@
 package com.example.userguideprototype.adapters;
 
-import android.bluetooth.BluetoothDevice;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,9 +64,14 @@ public class MainTitleAdapter extends RecyclerView.Adapter<MainTitleAdapter.Main
         private RecyclerView subItemRecyclerView;
         private SubTitleAdapter subTitleAdapter;
 
+        private ConstraintLayout constraintMainTitleContainer;
+
+
+
         public MainTitleViewHolder(View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.main_title);
+            constraintMainTitleContainer = itemView.findViewById(R.id.constraint_main_title_container);
+            titleTextView = itemView.findViewById(R.id.text_main_title_heading);
             subItemRecyclerView = itemView.findViewById(R.id.sub_item_recycler_view);
             // Initialize subItemRecyclerView and set its layout manager
             subItemRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
@@ -75,7 +80,7 @@ public class MainTitleAdapter extends RecyclerView.Adapter<MainTitleAdapter.Main
             subItemRecyclerView.setAdapter(subTitleAdapter);
 
             // Handle clicks on the main title to toggle sub-items visibility
-            titleTextView.setOnClickListener(new View.OnClickListener() {
+            constraintMainTitleContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
