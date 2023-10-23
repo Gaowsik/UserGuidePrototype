@@ -1,5 +1,6 @@
 package com.example.userguideprototype.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,25 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
     public interface OnSubTitleItemClickListener {
         void onSubTitleItemClick(String subTitle);
     }
+
     private List<SubTitle> subTitles;
+
+    private int selectedItemPosition = -1;
+    int lastSelectedPosition = -1;
+
+    public void setSelectedItemPosition(int position) {
+        selectedItemPosition = position;
+    }
 
     private OnSubTitleItemClickListener itemClickListener;
 
     public SubTitleAdapter(OnSubTitleItemClickListener itemClickListener) {
-        this.itemClickListener =itemClickListener;
+        this.itemClickListener = itemClickListener;
         subTitles = new ArrayList<>();
+    }
+
+    public void setSelectedSubtitle(String subtitle){
+        notifyDataSetChanged();
     }
 
     public void setSubTitles(List<SubTitle> subTitles) {
@@ -46,6 +59,13 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
         final SubTitle currentItem = subTitles.get(position);
         if (currentItem != null) {
             holder.subTitleTextView.setText(currentItem.getSubTitle());
+            if (selectedItemPosition == holder.getAdapterPosition()) {
+                // Change the background color to a different color when selected
+                holder.subTitleTextView.setBackgroundResource(R.drawable.bg_title_on_click);
+            } else {
+                // Change the background back to normal state
+                holder.subTitleTextView.setBackgroundColor(Color.TRANSPARENT);
+            }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,8 +73,12 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
                     if (itemClickListener != null) {
                         itemClickListener.onSubTitleItemClick(currentItem.getSubTitle());
                     }
+                    lastSelectedPosition = selectedItemPosition;
+                    selectedItemPosition = holder.getAdapterPosition();
+                    notifyDataSetChanged();
                 }
             });
+
         }
 
     }
@@ -69,7 +93,18 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
 
         public SubTitleViewHolder(View itemView) {
             super(itemView);
-            subTitleTextView = itemView.findViewById(R.id.sub_title);
+            subTitleTextView = itemView.findViewById(R.id.text_sub_title_nested);
+            // Set the selector drawable as the background
+            subTitleTextView.setBackgroundResource(R.drawable.bg_title_on_click);
         }
+    }
+
+    public boolean doesSubTitleExist(List<SubTitle> subTitles, SubTitle subTitleToFind) {
+        for (SubTitle subTitle : subTitles) {
+            if (subTitle.equals(subTitleToFind)) {
+                return true; // SubTitle exists in the list
+            }
+        }
+        return false; // SubTitle does not exist in the list
     }
 }
