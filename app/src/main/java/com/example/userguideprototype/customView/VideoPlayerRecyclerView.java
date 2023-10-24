@@ -5,6 +5,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import android.content.Context;
+import android.graphics.Outline;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -97,6 +99,14 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
         videoSurfaceView = new PlayerView(this.context);
         videoSurfaceView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
+        videoSurfaceView.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 8);
+            }
+        });
+
+        videoSurfaceView.setClipToOutline(true);
 
         // 2. Create the player
         videoPlayer = ExoPlayerFactory.newSimpleInstance(context);

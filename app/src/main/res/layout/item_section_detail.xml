@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:layout_marginBottom="10dp"
-        android:background="#000"
+        android:background="@drawable/bg_video_view"
         android:scaleType="center"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/text_video_description"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,9 +21,8 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="600dp"
-            android:background="#fff"
-            android:scaleType="centerInside"
-           android:backgroundTint="@color/white"/>
+            android:background="@drawable/bg_video_view"
+            android:scaleType="centerInside" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -41,11 +40,11 @@
         android:layout_height="wrap_content"
         android:background="#00000000"
         android:gravity="center"
-        android:padding="8dp"
+       android:layout_marginTop="4dp"
         android:textColor="@android:color/white"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/media_container"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/media_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
