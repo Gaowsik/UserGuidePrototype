@@ -3,6 +3,7 @@ package com.example.userguideprototype.Utils;
 import com.example.userguideprototype.R;
 import com.example.userguideprototype.models.MainData;
 import com.example.userguideprototype.models.MainTitle;
+import com.example.userguideprototype.models.MyItem;
 import com.example.userguideprototype.models.SubTitle;
 import com.example.userguideprototype.models.VideoItem;
 
@@ -74,6 +75,29 @@ public class Utils
         mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
         mainData.add(new MainData(MainData.VIEW_TYPE_SUBTITLE,"Sub Title 14"));
         mainData.add(new MainData(MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW,videoItems));
+
+        return mainData;
+    }
+
+
+    public static List<MyItem> generateTitleData(){
+        List<MyItem> mainData = new ArrayList<>();
+
+        mainData.add(new MyItem(MyItem.MAIN_TITLE,"Main Title 1"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 1"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 2"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 3"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 4"));
+        mainData.add(new MyItem(MyItem.MAIN_TITLE,"Main Title 2"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 5"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 6"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 7"));
+        mainData.add(new MyItem(MyItem.MAIN_TITLE,"Main Title 3"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 10"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 11"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 12"));
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 13"));;
+        mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 14"));
 
         return mainData;
     }

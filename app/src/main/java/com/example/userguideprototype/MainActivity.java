@@ -2,6 +2,7 @@ package com.example.userguideprototype;
 
 import static com.example.userguideprototype.Utils.Utils.generateMainData;
 import static com.example.userguideprototype.Utils.Utils.generateSampleMainTitleList;
+import static com.example.userguideprototype.Utils.Utils.generateTitleData;
 import static com.example.userguideprototype.models.MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +16,13 @@ import android.view.View;
 import com.example.userguideprototype.adapters.DetailSection.MainAdapter;
 import com.example.userguideprototype.adapters.MainTitleAdapter;
 import com.example.userguideprototype.adapters.SubTitleAdapter;
+import com.example.userguideprototype.adapters.TitleViewTypeAdapter;
 import com.example.userguideprototype.models.MainData;
 
-public class MainActivity extends AppCompatActivity implements SubTitleAdapter.OnSubTitleItemClickListener{
+public class MainActivity extends AppCompatActivity implements SubTitleAdapter.OnSubTitleItemClickListener,TitleViewTypeAdapter.OnSubTitleItemViewTypeClickListener{
     private MainTitleAdapter titleAdapter;
+
+    private TitleViewTypeAdapter titleViewTypeAdapter;
     private RecyclerView recyclerViewTitles;
 
     private MainAdapter mainAdapter;
@@ -43,15 +47,23 @@ public class MainActivity extends AppCompatActivity implements SubTitleAdapter.O
     private void inializeVariables() {
         recyclerViewTitles = findViewById(R.id.recycler_view_titles);
         mainRecyclerView = findViewById(R.id.recyclerView_content);
-        titleAdapter = new MainTitleAdapter(this);
+        titleViewTypeAdapter = new TitleViewTypeAdapter(generateTitleData(),this);
         mainAdapter = new MainAdapter(this,mainRecyclerView);
     }
 
-    private void setUpRecyclerView() {
+/*    private void setUpRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewTitles.setLayoutManager(layoutManager);
         recyclerViewTitles.setAdapter(titleAdapter);
         titleAdapter.setDataList(generateSampleMainTitleList());
+
+    }*/
+
+    private void setUpRecyclerView() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerViewTitles.setLayoutManager(layoutManager);
+        recyclerViewTitles.setAdapter(titleViewTypeAdapter);
+       // titleAdapter.setDataList(generateSampleMainTitleList());
 
     }
 
@@ -109,11 +121,8 @@ public class MainActivity extends AppCompatActivity implements SubTitleAdapter.O
     }
 
 
-
-
-
-
-
-
-
+    @Override
+    public void onSubTitleViewTypeItemClick(String subTitle) {
+        mainAdapter.navigateToSubTitle(subTitle);
+    }
 }
