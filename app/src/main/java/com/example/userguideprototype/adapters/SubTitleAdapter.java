@@ -28,6 +28,7 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
 
     public void setSelectedItemPosition(int position) {
         selectedItemPosition = position;
+        notifyDataSetChanged();
     }
 
     private OnSubTitleItemClickListener itemClickListener;
@@ -59,7 +60,7 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
         final SubTitle currentItem = subTitles.get(position);
         if (currentItem != null) {
             holder.subTitleTextView.setText(currentItem.getSubTitle());
-            if (selectedItemPosition == holder.getAdapterPosition()) {
+            if (selectedItemPosition == position) {
                 // Change the background color to a different color when selected
                 holder.subTitleTextView.setBackgroundResource(R.drawable.bg_title_on_click);
             } else {
@@ -73,9 +74,10 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
                     if (itemClickListener != null) {
                         itemClickListener.onSubTitleItemClick(currentItem.getSubTitle());
                     }
-                    lastSelectedPosition = selectedItemPosition;
-                    selectedItemPosition = holder.getAdapterPosition();
-                    notifyDataSetChanged();
+                  //  lastSelectedPosition = selectedItemPosition;
+                 //   selectedItemPosition = holder.getAdapterPosition();
+                   // notifyDataSetChanged();
+                    setSelectedItemPosition(position);
                 }
             });
 
@@ -97,6 +99,8 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.SubTit
             // Set the selector drawable as the background
             subTitleTextView.setBackgroundResource(R.drawable.bg_title_on_click);
         }
+
+
     }
 
     public boolean doesSubTitleExist(List<SubTitle> subTitles, SubTitle subTitleToFind) {
