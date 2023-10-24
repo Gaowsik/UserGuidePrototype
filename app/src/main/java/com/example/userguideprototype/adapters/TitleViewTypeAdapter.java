@@ -1,5 +1,8 @@
 package com.example.userguideprototype.adapters;
 
+import static com.example.userguideprototype.models.MyItem.MAIN_TITLE;
+import static com.example.userguideprototype.models.MyItem.SUB_TITLE;
+
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,8 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private int selectedSubtitleItemPosition = -1;
 
+    private int selectedMainTitlePosition = -1;
+
     public TitleViewTypeAdapter(List<MyItem> items, OnSubTitleItemViewTypeClickListener itemClickListener) {
         this.items = items;
         this.itemClickListener = itemClickListener;
@@ -47,7 +52,7 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
         View view;
         RecyclerView.ViewHolder viewHolder;
 
-        if (viewType == MyItem.MAIN_TITLE) {
+        if (viewType == MAIN_TITLE) {
             view = inflater.inflate(R.layout.item_viewtype_main_title, parent, false);
             viewHolder = new MainTitleViewHolder(view);
         } else {
@@ -61,49 +66,52 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyItem item = items.get(position);
+        switch (holder.getItemViewType()) {
+            case MAIN_TITLE:
+                ((MainTitleViewHolder) holder).textMainTitle.setText(item.getTitle());
+                ((MainTitleViewHolder) holder).layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (selectedMainTitlePosition == position) {
+                            // The same main title is clicked again, hide its subtitles
+                            selectedMainTitlePosition = -1;
+                        } else {
+                            // A new main title is clicked, show its subtitles
+                            selectedMainTitlePosition = position;
+                        }
+                        notifyDataSetChanged();
+                    }
+                });
+                break;
 
-        if (holder instanceof MainTitleViewHolder) {
-            MainTitleViewHolder titleHolder = (MainTitleViewHolder) holder;
-            // Bind main title data
-            titleHolder.textMainTitle.setText(item.getTitle());
+            case SUB_TITLE:
+                ((SubtitleViewHolder) holder).textSubTitle.setText(item.getTitle());
 
-            // Set an OnClickListener to toggle subtitle visibility
-            titleHolder.imageExpandIcon.setOnClickListener(v -> {
-                item.toggleVisibility(); // Update the visibility flag for subtitles
-                notifyDataSetChanged(); // Refresh the view
-            });
-        } else if (holder instanceof SubtitleViewHolder) {
-
-
-            SubtitleViewHolder subtitleHolder = (SubtitleViewHolder) holder;
-            // Bind subtitle data
-            subtitleHolder.textSubTitle.setText(item.getTitle());
-
-            if (selectedSubtitleItemPosition == position) {
-                // Change the background color to a different color when selected
-                ((SubtitleViewHolder) holder).textSubTitle.setBackgroundResource(R.drawable.bg_title_on_click);
-            } else {
-                // Change the background back to normal state
-                ((SubtitleViewHolder) holder).textSubTitle.setBackgroundColor(Color.TRANSPARENT);
-            }
-
-            subtitleHolder.textSubTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    itemClickListener.onSubTitleViewTypeItemClick(item.getTitle());
-                    setSelectedItemPosition(position);
-
+                if (selectedSubtitleItemPosition == position) {
+                    // Change the background color to a different color when selected
+                    ((SubtitleViewHolder) holder).textSubTitle.setBackgroundResource(R.drawable.bg_title_on_click);
+                } else {
+                    // Change the background back to normal state
+                    ((SubtitleViewHolder) holder).textSubTitle.setBackgroundColor(Color.TRANSPARENT);
                 }
-            });
 
-            // Set visibility based on the flag
-            if (item.isHidden()) {
-                subtitleHolder.textSubTitle.setVisibility(View.GONE);
-            } else {
-                subtitleHolder.textSubTitle.setVisibility(View.VISIBLE);
-            }
+                ((SubtitleViewHolder) holder).textSubTitle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        itemClickListener.onSubTitleViewTypeItemClick(item.getTitle());
+                        setSelectedItemPosition(position);
+
+                    }
+                });
+               if (selectedMainTitlePosition == -1 || position > findNextMainTitleIndex(selectedMainTitlePosition)) {
+                    ((SubtitleViewHolder) holder).textSubTitle.setVisibility(View.GONE);
+                } else {
+                    ((SubtitleViewHolder) holder).textSubTitle.setVisibility(View.VISIBLE);
+                }
+                break;
         }
+
     }
 
     @Override
@@ -114,6 +122,15 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemViewType(int position) {
         return items.get(position).getType();
+    }
+
+    public int findNextMainTitleIndex(int currentPosition) {
+        for (int i = currentPosition + 1; i < items.size(); i++) {
+            if (items.get(i).getType() == MyItem.MAIN_TITLE) {
+                return i;
+            }
+        }
+        return currentPosition; // No more main titles found
     }
 
 

@@ -82,7 +82,6 @@ public class Utils
 
     public static List<MyItem> generateTitleData(){
         List<MyItem> mainData = new ArrayList<>();
-
         mainData.add(new MyItem(MyItem.MAIN_TITLE,"Main Title 1"));
         mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 1"));
         mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 2"));
@@ -98,7 +97,6 @@ public class Utils
         mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 12"));
         mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 13"));;
         mainData.add(new MyItem(MyItem.SUB_TITLE,"Sub Title 14"));
-
         return mainData;
     }
 
