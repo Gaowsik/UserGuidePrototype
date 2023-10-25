@@ -104,7 +104,7 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                     }
                 });
-               if (selectedMainTitlePosition == -1 || position > findNextMainTitleIndex(selectedMainTitlePosition)) {
+                if (selectedMainTitlePosition == -1 || (position > findNextMainTitleIndex(selectedMainTitlePosition) || (position < selectedMainTitlePosition))) {
                     ((SubtitleViewHolder) holder).textSubTitle.setVisibility(View.GONE);
                 } else {
                     ((SubtitleViewHolder) holder).textSubTitle.setVisibility(View.VISIBLE);
@@ -130,7 +130,7 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
                 return i;
             }
         }
-        return currentPosition; // No more main titles found
+        return items.size(); // No more main titles found
     }
 
 
