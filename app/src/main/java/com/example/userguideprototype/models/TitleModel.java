@@ -1,6 +1,6 @@
 package com.example.userguideprototype.models;
 
-public class MyItem {
+public class TitleModel {
     public static final int MAIN_TITLE = 0;
     public static final int SUB_TITLE = 1;
 
@@ -10,7 +10,7 @@ public class MyItem {
     private String title; // Main title text
 
 
-    public MyItem(int type, String title) {
+    public TitleModel(int type, String title) {
         this.type = type;
         this.title = title;
         // Initialize subtitle to an empty string

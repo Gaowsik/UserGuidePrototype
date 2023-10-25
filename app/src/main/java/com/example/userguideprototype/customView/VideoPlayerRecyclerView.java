@@ -73,10 +73,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     private int screenDefaultHeight = 0;
     private Context context;
     private int playPosition = -1;
-    private boolean isVideoViewAdded=false;
-    private boolean isAtLastItem;
-    private int currentVideo;
-
+    private boolean isVideoViewAdded = false;
 
     public VideoPlayerRecyclerView(@NonNull Context context) {
         super(context);
@@ -117,7 +114,6 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         Log.d("videoFlow", "init is called");
 
 
-
         addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -129,7 +125,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
                         thumbnail.setVisibility(VISIBLE);
                     }
                     Log.d("videoFlow", "playVideo from horizonatal change");
-                    playVideo(currentVideo);
+                    playVideo();
 
 
                 }
@@ -139,9 +135,8 @@ public class VideoPlayerRecyclerView extends RecyclerView {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (playPosition == -1)
-                {
-                    playVideo(0);
+                if (playPosition == -1) {
+                    playVideo();
                 }
             }
         });
@@ -202,9 +197,9 @@ public class VideoPlayerRecyclerView extends RecyclerView {
                         Log.e(TAG, "onPlayerStateChanged: Ready to play.");
                         if (progressBar != null) {
                             progressBar.setVisibility(GONE);
-                            Log.d("videoFlow","progress bar is gone");
+                            Log.d("videoFlow", "progress bar is gone");
                         }
-                        Log.d("videoFlow","isVideoViewAdded"+isVideoViewAdded);
+                        Log.d("videoFlow", "isVideoViewAdded" + isVideoViewAdded);
                         if (!isVideoViewAdded) {
                             addVideoView();
                             Log.d("videoFlow", "View has been resetted");
@@ -247,8 +242,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         });
     }
 
-    public void playVideo(int number) {
-
+    public void playVideo() {
 
 
         int visiblePosition = ((LinearLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
@@ -265,7 +259,6 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         Log.d(TAG, "playVideo: target position: " + targetPosition);
         Log.d("videoFlow", "playVideo: target position: " + targetPosition);
         Log.d("videoFlow", "playVideo: play position: " + playPosition);
-        Log.d("videoFlow", "playVideo: currentVideo: " + currentVideo);
 
         // video is already playing so return
         if (targetPosition == playPosition) {
@@ -305,13 +298,11 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
         videoSurfaceView.setPlayer(videoPlayer);
 
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(
-                context, Util.getUserAgent(context, "RecyclerView VideoPlayer"));
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context, Util.getUserAgent(context, "RecyclerView VideoPlayer"));
         int mediaUrl = mediaObjects.get(targetPosition).getVideoResId();
         // Uri videoUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + mediaUrl);
         Uri videoUri = RawResourceDataSource.buildRawResourceUri(mediaUrl);
-        MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(videoUri);
+        MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(videoUri);
         videoPlayer.prepare(videoSource);
         videoPlayer.setPlayWhenReady(true);
         Log.d("videoFlow", "Video is played");
@@ -356,7 +347,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         if (index >= 0) {
             parent.removeViewAt(index);
             isVideoViewAdded = false;
-            Log.d("videoFlow", "View has been removed"+index);
+            Log.d("videoFlow", "View has been removed" + index);
 //            viewHolderParent.setOnClickListener(null);
         }
 
@@ -389,9 +380,9 @@ public class VideoPlayerRecyclerView extends RecyclerView {
             videoPlayer.release();
             videoPlayer = null;
         }
-        Log.d("videoFlow","Player is released");
+        Log.d("videoFlow", "Player is released");
 
-    //    viewHolderParent = null;
+        //    viewHolderParent = null;
     }
 
 
@@ -399,14 +390,6 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         this.mediaObjects = mediaObjects;
     }
 
-    // Implement a method to check if a view is fully visible
-/*    private boolean isFullyVisible(View view) {
-        Rect rect = new Rect();
-        view.getLocalVisibleRect(rect);
-        int visibleHeight = rect.bottom - rect.top;
-        int viewHeight = view.getHeight();
-        return visibleHeight == viewHeight;
-    }*/
 
     // Pause the player and seek to the start position
     public void pauseAndSeekToStart() {
@@ -417,25 +400,11 @@ public class VideoPlayerRecyclerView extends RecyclerView {
     }
 
     // Resume playback from the start position
-   public void playFromStart() {
+    public void playFromStart() {
         if (videoPlayer != null) {
             videoPlayer.setPlayWhenReady(true);
             videoPlayer.seekTo(0);
         }
     }
 
-    public int getTargetPosition()
-    {
-        return targetPosition;
-    }
-
-    private boolean isFullyVisible(View view) {
-        Rect itemRect = new Rect();
-        view.getGlobalVisibleRect(itemRect);
-
-        Rect recyclerRect = new Rect();
-        getGlobalVisibleRect(recyclerRect);
-
-        return itemRect.intersect(recyclerRect);
-    }
 }

@@ -2,7 +2,7 @@ package com.example.userguideprototype;
 
 import static com.example.userguideprototype.Utils.Utils.generateMainData;
 import static com.example.userguideprototype.Utils.Utils.generateTitleData;
-import static com.example.userguideprototype.models.MainData.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW;
+import static com.example.userguideprototype.models.VideoDetailModel.VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,18 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.userguideprototype.adapters.DetailSection.MainAdapter;
-import com.example.userguideprototype.adapters.TitleViewTypeAdapter;
-import com.example.userguideprototype.models.MainData;
+import com.example.userguideprototype.adapters.DetailSection.VideoDetailAdapter;
+import com.example.userguideprototype.adapters.titleSection.TitleViewTypeAdapter;
+import com.example.userguideprototype.models.VideoDetailModel;
 
 public class MainActivity extends AppCompatActivity implements TitleViewTypeAdapter.OnSubTitleItemViewTypeClickListener {
 
     private TitleViewTypeAdapter titleViewTypeAdapter;
     private RecyclerView recyclerViewTitles;
 
-    private MainAdapter mainAdapter;
+    private VideoDetailAdapter videoDetailAdapter;
 
-    private RecyclerView mainRecyclerView;
+    private RecyclerView recylerViewVideoDetails;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,28 +34,20 @@ public class MainActivity extends AppCompatActivity implements TitleViewTypeAdap
 
     private void init() {
         inializeVariables();
-        setUpRecyclerView();
-        setUpMainRecyclerView();
+        setUpTitleRecyclerView();
+        setUpVideoRecyclerView();
 
     }
 
 
     private void inializeVariables() {
         recyclerViewTitles = findViewById(R.id.recycler_view_titles);
-        mainRecyclerView = findViewById(R.id.recyclerView_content);
+        recylerViewVideoDetails = findViewById(R.id.recyclerView_content);
         titleViewTypeAdapter = new TitleViewTypeAdapter(generateTitleData(), this);
-        mainAdapter = new MainAdapter(this, mainRecyclerView);
+        videoDetailAdapter = new VideoDetailAdapter(this, recylerViewVideoDetails);
     }
 
-/*    private void setUpRecyclerView() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerViewTitles.setLayoutManager(layoutManager);
-        recyclerViewTitles.setAdapter(titleAdapter);
-        titleAdapter.setDataList(generateSampleMainTitleList());
-
-    }*/
-
-    private void setUpRecyclerView() {
+    private void setUpTitleRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewTitles.setLayoutManager(layoutManager);
         recyclerViewTitles.setAdapter(titleViewTypeAdapter);
@@ -62,14 +55,14 @@ public class MainActivity extends AppCompatActivity implements TitleViewTypeAdap
 
     }
 
-    private void setUpMainRecyclerView() {
+    private void setUpVideoRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        mainRecyclerView.setLayoutManager(layoutManager);
-        mainRecyclerView.setAdapter(mainAdapter);
+        recylerViewVideoDetails.setLayoutManager(layoutManager);
+        recylerViewVideoDetails.setAdapter(videoDetailAdapter);
 
 
         // Add an OnScrollListener to your RecyclerView
-        mainRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recylerViewVideoDetails.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 // Check if the VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW is fully visible
@@ -77,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements TitleViewTypeAdap
 
                 if (firstVisibleItemPosition != RecyclerView.NO_POSITION) {
                     // Get the item at the firstVisibleItemPosition
-                    MainData item = mainAdapter.mainTitles.get(firstVisibleItemPosition);
+                    VideoDetailModel item = videoDetailAdapter.mainTitles.get(firstVisibleItemPosition);
 
                     if (item.getViewType() == VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW) {
                         // Your VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW is fully visible, call your method here
@@ -88,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements TitleViewTypeAdap
             }
         });
 
-        mainAdapter.setData(generateMainData());
+        videoDetailAdapter.setData(generateMainData());
 
     }
 
@@ -112,6 +105,6 @@ public class MainActivity extends AppCompatActivity implements TitleViewTypeAdap
 
     @Override
     public void onSubTitleViewTypeItemClick(String subTitle) {
-        mainAdapter.navigateToSubTitle(subTitle);
+        videoDetailAdapter.navigateToSubTitle(subTitle);
     }
 }

@@ -13,33 +13,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
 import com.example.userguideprototype.customView.VideoPlayerRecyclerView;
-import com.example.userguideprototype.models.MainData;
-import com.example.userguideprototype.models.MainTitle;
-import com.example.userguideprototype.models.SubTitle;
+import com.example.userguideprototype.models.VideoDetailModel;
 import com.example.userguideprototype.models.VideoItem;
-import com.google.android.exoplayer2.text.Subtitle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class VideoDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_MAIN_TITLE = 0;
     private static final int VIEW_TYPE_SUBTITLE = 1;
     private static final int VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW = 2;
 
 
     private final Context context;
-    public List<MainData> mainTitles; // List of items, where Object can be MainTitle, Subtitle, or List<ImageData>
+    public List<VideoDetailModel> mainTitles; // List of items, where Object can be MainTitle, Subtitle, or List<ImageData>
 
     private RecyclerView mainRecyclerView;
 
-    public MainAdapter(Context context, RecyclerView mainRecyclerView) {
+    public VideoDetailAdapter(Context context, RecyclerView mainRecyclerView) {
         this.context = context;
         mainTitles = new ArrayList<>();
         this.mainRecyclerView = mainRecyclerView;
     }
 
-    public void setData(List<MainData> mainTitle) {
+    public void setData(List<VideoDetailModel> mainTitle) {
         this.mainTitles = mainTitle;
     }
 
@@ -88,7 +85,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MainData item = mainTitles.get(position);
+        VideoDetailModel item = mainTitles.get(position);
         holder.setIsRecyclable(false);
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MAIN_TITLE:
@@ -116,7 +113,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mainTitleTextView = itemView.findViewById(R.id.text_main_title);
         }
 
-        void bindMainTitle(MainData mainTitle) {
+        void bindMainTitle(VideoDetailModel mainTitle) {
             mainTitleTextView.setText(mainTitle.getTitle());
         }
     }
@@ -129,7 +126,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             subtitleTextView = itemView.findViewById(R.id.text_sub_title);
         }
 
-        void bindSubtitle(MainData subtitle) {
+        void bindSubtitle(VideoDetailModel subtitle) {
             subtitleTextView.setText(subtitle.getTitle());
         }
     }
@@ -148,7 +145,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             imageRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         }
 
-        void bindImageDataList(MainData videoDataList) {
+        void bindImageDataList(VideoDetailModel videoDataList) {
             videoAdapter.setVideoAdapterItems(videoDataList.getVideoItemList());
             imageRecyclerView.setMediaObjects((ArrayList<VideoItem>) videoDataList.getVideoItemList());
         }
@@ -163,7 +160,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void navigateToSubTitle(String subTitleName) {
-        for (MainData mainTitle : mainTitles) {
+        for (VideoDetailModel mainTitle : mainTitles) {
             if (mainTitle.getTitle() != null && mainTitle.getTitle().equals(subTitleName)) {
                 int mainTitlePosition = mainTitles.indexOf(mainTitle);
 

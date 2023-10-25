@@ -1,7 +1,7 @@
-package com.example.userguideprototype.adapters;
+package com.example.userguideprototype.adapters.titleSection;
 
-import static com.example.userguideprototype.models.MyItem.MAIN_TITLE;
-import static com.example.userguideprototype.models.MyItem.SUB_TITLE;
+import static com.example.userguideprototype.models.TitleModel.MAIN_TITLE;
+import static com.example.userguideprototype.models.TitleModel.SUB_TITLE;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.userguideprototype.R;
-import com.example.userguideprototype.models.MyItem;
+import com.example.userguideprototype.models.TitleModel;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
         void onSubTitleViewTypeItemClick(String subTitle);
     }
 
-    private List<MyItem> items;
+    private List<TitleModel> items;
 
     private OnSubTitleItemViewTypeClickListener itemClickListener;
 
@@ -33,7 +33,7 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private int selectedMainTitlePosition = -1;
 
-    public TitleViewTypeAdapter(List<MyItem> items, OnSubTitleItemViewTypeClickListener itemClickListener) {
+    public TitleViewTypeAdapter(List<TitleModel> items, OnSubTitleItemViewTypeClickListener itemClickListener) {
         this.items = items;
         this.itemClickListener = itemClickListener;
 
@@ -65,7 +65,7 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MyItem item = items.get(position);
+        TitleModel item = items.get(position);
         switch (holder.getItemViewType()) {
             case MAIN_TITLE:
                 ((MainTitleViewHolder) holder).textMainTitle.setText(item.getTitle());
@@ -126,7 +126,7 @@ public class TitleViewTypeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public int findNextMainTitleIndex(int currentPosition) {
         for (int i = currentPosition + 1; i < items.size(); i++) {
-            if (items.get(i).getType() == MyItem.MAIN_TITLE) {
+            if (items.get(i).getType() == TitleModel.MAIN_TITLE) {
                 return i;
             }
         }
