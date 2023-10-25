@@ -59,6 +59,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
 
     // ui
+    private int targetPosition;
     private ImageView thumbnail, volumeControl;
     private ProgressBar progressBar;
     private View viewHolderParent;
@@ -248,7 +249,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
     public void playVideo(int number) {
 
-        int targetPosition;
+
 
         int visiblePosition = ((LinearLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
 
@@ -423,6 +424,10 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         }
     }
 
+    public int getTargetPosition()
+    {
+        return targetPosition;
+    }
 
     private boolean isFullyVisible(View view) {
         Rect itemRect = new Rect();

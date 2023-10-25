@@ -98,6 +98,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case VIEW_TYPE_SUBTITLE:
                 //((SubtitleViewHolder) holder).bindSubtitle(item);
                 ((SubtitleViewHolder) holder).subtitleTextView.setText(item.getTitle());
+
                 break;
             case VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW:
 
@@ -137,6 +138,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private VideoAdapter videoAdapter;
         private VideoPlayerRecyclerView imageRecyclerView;
+
 
         ImageRecyclerViewViewHolder(@NonNull View itemView) {
             super(itemView);

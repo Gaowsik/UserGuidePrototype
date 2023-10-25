@@ -5,6 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_video_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_video_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/text_seperator"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/text_seperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/text_video_number"
+            app:layout_constraintStart_toEndOf="@+id/text_video_number"
+            app:layout_constraintTop_toTopOf="@+id/text_video_number" />
+
+        <TextView
+            android:id="@+id/text_total_video_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/text_seperator"
+            app:layout_constraintStart_toEndOf="@+id/text_seperator"
+            app:layout_constraintTop_toTopOf="@+id/text_seperator"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            tools:text="10" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <FrameLayout
         android:id="@+id/media_container"
         android:layout_width="match_parent"
@@ -15,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@+id/text_video_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/constraint_video_number">
 
         <ImageView
             android:id="@+id/thumbnail"

@@ -48,6 +48,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         holder.itemView.setTag(holder);
         VideoItem videoItem = videoItems.get(position);
         holder.descriptionTextView.setText(videoItem.getDescription());
+        holder.textTotalVideoCount.setText(String.valueOf(videoItems.size()));
+        holder.textVideoNumber.setText(String.valueOf(holder.getAdapterPosition()+1));
         // Initialize ExoPlayer for this item
         // holder.initializePlayer(videoItem.getVideoResId());
     }
@@ -65,6 +67,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         private TextView descriptionTextView;
         public ImageView thumbnail;
 
+        private TextView textTotalVideoCount;
+        private TextView textVideoNumber;
+
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             //     playerView = itemView.findViewById(R.id.playerView);
@@ -73,6 +78,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             thumbnail = itemView.findViewById(R.id.thumbnail);
             progressBar = itemView.findViewById(R.id.progressBar);
             descriptionTextView = itemView.findViewById(R.id.text_video_description);
+            textTotalVideoCount = itemView.findViewById(R.id.text_total_video_count);
+            textVideoNumber = itemView.findViewById(R.id.text_video_number);
         }
 
  /*       public void initializePlayer(int videoResId) {
