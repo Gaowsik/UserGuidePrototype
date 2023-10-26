@@ -378,9 +378,10 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
         if (videoPlayer != null) {
             videoPlayer.release();
+            Log.d("videoFlow", "Player is released");
             videoPlayer = null;
         }
-        Log.d("videoFlow", "Player is released");
+
 
         //    viewHolderParent = null;
     }

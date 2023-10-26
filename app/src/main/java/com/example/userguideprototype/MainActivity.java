@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity implements TitleViewTypeAdap
                     VideoDetailModel item = videoDetailAdapter.mainTitles.get(firstVisibleItemPosition);
 
                     if (item.getViewType() == VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW) {
+                  //     videoDetailAdapter.notifyDataSetChanged();
                         // Your VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW is fully visible, call your method here
                         //    Log.d("videoFlow", "playVideo when the item is fully visible at position " + firstVisibleItemPosition);
-                        //  mainAdapter.playVideo(firstVisibleItemPosition);
                     }
                 }
             }

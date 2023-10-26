@@ -1,6 +1,8 @@
 package com.example.userguideprototype.adapters.DetailSection;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,8 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int VIEW_TYPE_MAIN_TITLE = 0;
     private static final int VIEW_TYPE_SUBTITLE = 1;
     private static final int VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW = 2;
+
+    private boolean hasNotifiedDataSetChanged = false;
 
 
     private final Context context;
@@ -98,8 +102,8 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 break;
             case VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW:
-
-                ((ImageRecyclerViewViewHolder) holder).playFromStart();
+                hasNotifiedDataSetChanged = false;
+                //((ImageRecyclerViewViewHolder) holder).playFromStart();
                 ((ImageRecyclerViewViewHolder) holder).bindImageDataList(item);
                 break;
         }
@@ -189,7 +193,16 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (holder.getItemViewType() == VIEW_TYPE_HORIZONTAL_IMAGE_RECYCLERVIEW) {
             // Handle resource cleanup specific to your ImageRecyclerViewViewHolder here
             ((ImageRecyclerViewViewHolder) holder).releaseResource();
-            Log.d("videoFlow", "Player is released");
+            Log.d("videoFlow", "Player is released : hasNotifiedDataSetChanged" + hasNotifiedDataSetChanged);
+            if (!hasNotifiedDataSetChanged) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                        hasNotifiedDataSetChanged= true;
+                    }
+                }, 1000);
+            }
         }
     }
 
