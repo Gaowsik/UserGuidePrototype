@@ -194,15 +194,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             // Handle resource cleanup specific to your ImageRecyclerViewViewHolder here
             ((ImageRecyclerViewViewHolder) holder).releaseResource();
             Log.d("videoFlow", "Player is released : hasNotifiedDataSetChanged" + hasNotifiedDataSetChanged);
-            if (!hasNotifiedDataSetChanged) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        notifyDataSetChanged();
-                        hasNotifiedDataSetChanged= true;
-                    }
-                }, 1000);
-            }
+
         }
     }
 
